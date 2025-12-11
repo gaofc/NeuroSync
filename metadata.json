@@ -1,0 +1,7 @@
+{
+  "name": "Tech Ripple PiP",
+  "description": "A high-tech visualizer featuring a cyberpunk ripple animation that can be popped out into a floating window using the Document Picture-in-Picture API.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
