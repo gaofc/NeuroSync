@@ -16,7 +16,7 @@
 
 ---
 
-## 🏗 System Architecture (Why It Wins)
+## 🏗 System Architecture
 
 NeuroSync solves the **Latency vs. Intelligence** trade-off using a smart **4-Stage Cognitive Pipeline**.
 
@@ -31,12 +31,12 @@ graph TD
     end
 
     subgraph "Stage 2: The Semantic Gate"
-        E -->|Text Summary| F[Gemini Flash (Router)]
+        E -->|Text Summary| F[Gemini Flash]
         F -->|Decision: False Alarm| G[Log & Decay]
     end
 
     subgraph "Stage 3 & 4: Deep Reasoning"
-        F -->|Decision: Deep Analysis| H[Gemini 3 Pro (Multimodal)]
+        F -->|Decision: Deep Analysis| H[Gemini 3 Pro]
         H -->|Action Required| I[**Gemini Multimodal Live API**]
         I <-->|Real-time Voice Coaching| User
     end
@@ -46,7 +46,7 @@ graph TD
 
 ### The 4-Stage Pipeline
 1.  **Stage 1: Real-time Edge Sensing (Zero Latency)**
-    *   Local MediaPipe inference tracks **10 of 52 facial blendshapes**, head pose (nodding/shaking), and body distance.
+    *   Local MediaPipe inference tracks **11 of 52 facial blendshapes**, head pose (nodding/shaking), and body distance.
     *   These vectors directly drive the **Sine/Cosine Waveform UI** (Frequency, Amplitude, Color) instantly.
 2.  **Stage 2: The Semantic Gate (Gemini Flash)**
     *   When the "Vector Change Rate" breaches a threshold, a lightweight request is sent to Gemini Flash to decide if deep analysis is needed.
