@@ -12,7 +12,7 @@
 
 ## 📸 Demo & Visuals
 
-*(Place your GIF or Screenshot here. Ideally, a GIF showing the Waveform changing colors as you move, and then the Gemini Live interface popping up.)*
+![preview of debug_mode](pics/debug_mode.gif)
 
 ---
 
@@ -73,6 +73,38 @@ Screen captures are downsampled to **64x64px** for privacy and speed. We compute
 
 ---
 
+## Core Detections
+
+Using MediaPipe FaceLandmarker for real-time face detection, analyzing 52 facial blendshapes and a 4x4 transformation matrix to determine expressions and posture.
+
+### Detection Pipeline
+The entire detection loop runs at approximately 60fps:
+1. Get facial features
+2. Extracts blendshapes and transformation matrix
+3. Calculates change rates for expressions, rotation, and position
+4. Triggers corresponding events based on thresholds
+5. Updates UI display and anomaly score
+
+### Expression Detection
+Expressions are detected by monitoring the rate of change in specific facial blendshapes:
+- Monitors 11 key blendshapes including eyebrows, eyes, jaw, and mouth
+- Calculates Euclidean distance between current expression and historical average
+- Triggers expression event when change rate exceeds (0.2) and position change is minimal
+
+### Posture Detection
+Posture is obtained by calculating Euler angles from the facial transformation matrix
+- Extracts rotation components from the 4x4 transformation matrix
+- Compute pitch, yaw, and roll angles
+- Position changes are detected through the matrix's translation components [x,y,z], with z-axis used for forward/backward tilt detection
+
+### Nod/Shake Detection
+Nodding and shaking are detected by analyzing angle history buffers:
+- Maintains a 15-frame angle buffer
+- Nod: pitch angle range exceeds (12°)
+- Shake: yaw angle range exceeds (15°)
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -107,6 +139,7 @@ Screen captures are downsampled to **64x64px** for privacy and speed. We compute
 *   **🗣️ Proactive AI Voice:** Powered by Gemini Multimodal Live API, it speaks to you when you need it most.
 *   **🎯 Goal-Oriented:** Set a goal ("Finish refactoring"), and the AI acts as a dedicated supervisor for that specific task.
 *   **🔋 Efficiency:** "Change Rate" algorithms ensure we only call expensive APIs when absolutely necessary.
+*   **🔋 customization:** More than ten parameters, including threshold, weight, sensitivity, etc., can be configured through the settings page.
 
 ---
 
